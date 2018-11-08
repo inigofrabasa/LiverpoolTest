@@ -3,29 +3,25 @@ package com.inigoflores.liverpooltest.store_search.respository;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Created by inigo on 08/11/18.
+ */
+
 public class Refinement {
-    @SerializedName("multiSelect")
-    @Expose
-    public Boolean multiSelect;
-    @SerializedName("navigationState")
-    @Expose
-    public String navigationState;
-    @SerializedName("contentPath")
-    @Expose
-    public String contentPath;
     @SerializedName("count")
     @Expose
     public Integer count;
-    @SerializedName("@class")
-    @Expose
-    public String _class;
-    @SerializedName("siteRootPath")
-    @Expose
-    public String siteRootPath;
     @SerializedName("label")
     @Expose
     public String label;
-    @SerializedName("properties")
+    @SerializedName("refinementId")
     @Expose
-    public Properties properties;
+    public String refinementId;
+    @SerializedName("selected")
+    @Expose
+    public Boolean selected;
+    @SerializedName("colorHex")
+    @Expose
+    public String colorHex;
+
 }

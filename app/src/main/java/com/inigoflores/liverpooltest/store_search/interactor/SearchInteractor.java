@@ -5,10 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.inigoflores.liverpooltest.R;
 import com.inigoflores.liverpooltest.application.LiverpoolApplication;
 import com.inigoflores.liverpooltest.store_search.presenter.ISearchPresenter;
-import com.inigoflores.liverpooltest.store_search.respository.Content;
-import com.inigoflores.liverpooltest.store_search.respository.Content_;
 import com.inigoflores.liverpooltest.store_search.respository.ISearchDataService;
-import com.inigoflores.liverpooltest.store_search.respository.MainContent;
 import com.inigoflores.liverpooltest.store_search.respository.Search;
 
 import okhttp3.OkHttpClient;
@@ -25,8 +22,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class SearchInteractor implements ISearchInteractor {
 
     private final String baseUrl = LiverpoolApplication.context.getResources().getString(R.string.urlBase);
-    private final String jsonKey = LiverpoolApplication.context.getResources().getString(R.string.jsonKey);
-    private final String listParam = LiverpoolApplication.context.getResources().getString(R.string.listParam);
 
     private ISearchPresenter searchPresenter;
 
@@ -37,37 +32,36 @@ public class SearchInteractor implements ISearchInteractor {
     @Override
     public void requestSearch(String param) {
 
+        //1 OkHttpClient
         OkHttpClient client = new OkHttpClient();
 
+        //2 GsonBuilder
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
 
+        //3 Retrofit.Builder()
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
-        ISearchDataService service =  retrofit.create(ISearchDataService.class);
+        //4 retrofit.create
+        ISearchDataService service = retrofit.create(ISearchDataService.class);
 
-        Call<Search> messagesCall = service.getContent(baseUrl + "?s="+ param + "&" + jsonKey);
+        //5 service.getRecords
+        Call<Search> messagesCall = service.getRecords(baseUrl + "plp?search-string=" + param);
         if(messagesCall != null){
             messagesCall.enqueue(new Callback<Search>() {
                 @Override
                 public void onResponse(Call<Search> call, Response<Search> response) {
-                    if(response.body().contents != null){
-                        for(Content content : response.body().contents)
-                            for(MainContent mainContent : content.mainContent)
-                                if(mainContent.contents != null)
-                                    for (Content_ content_ : mainContent.contents) {
-                                        if (content_.name.contains(listParam)) {
-                                            searchPresenter.responseSearch(content_.records);
-                                            break;
-                                        }
-                                    }
+                    if(response.body().plpResults != null){
+                        if(response.body().plpResults.records != null && response.body().plpResults.records.size() > 0){
+                            searchPresenter.responseSearch(response.body().plpResults.records);
+                        }
                     }
-                    else if(response.body().contents == null){
+                    else if(response.body().plpResults == null){
                         searchPresenter.responseError("0");}
                 }
 

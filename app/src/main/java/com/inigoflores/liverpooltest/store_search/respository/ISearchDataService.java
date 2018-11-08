@@ -5,10 +5,10 @@ import retrofit2.http.GET;
 import retrofit2.http.Url;
 
 /**
- * Created by inigo on 07/12/17.
+ * Created by inigo on 08/11/18.
  */
 
 public interface ISearchDataService {
     @GET
-    Call<Search> getContent(@Url String url);
+    Call<Search> getRecords(@Url String url);
 }

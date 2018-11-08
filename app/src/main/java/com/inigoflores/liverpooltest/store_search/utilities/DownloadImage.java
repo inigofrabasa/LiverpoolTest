@@ -6,7 +6,7 @@ import android.graphics.Matrix;
 import android.os.AsyncTask;
 import android.widget.ImageView;
 
-import com.inigoflores.liverpooltest.store_search.respository.Attributes;
+import com.inigoflores.liverpooltest.store_search.respository.Record;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -21,11 +21,11 @@ import java.net.URL;
 public class DownloadImage extends AsyncTask<String, Void, Bitmap> {
 
     private final WeakReference<ImageView> imageViewReference;
-    private Attributes attributes;
+    private Record record;
 
-    public DownloadImage(ImageView imageView, Attributes attributes) {
+    public DownloadImage(ImageView imageView, Record record) {
         this.imageViewReference = new WeakReference<>(imageView);
-        this.attributes = attributes;
+        this.record = record;
     }
     @Override
     protected Bitmap doInBackground(String... url) {
@@ -57,8 +57,8 @@ public class DownloadImage extends AsyncTask<String, Void, Bitmap> {
             bitmap = null;
         }
 
-        if(attributes != null)
-            attributes.productImage = bitmap;
+        if(record != null)
+            record.productImage = bitmap;
 
         if (imageViewReference != null) {
             ImageView imageView = imageViewReference.get();

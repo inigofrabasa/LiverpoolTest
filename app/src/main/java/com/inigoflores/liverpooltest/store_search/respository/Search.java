@@ -3,14 +3,18 @@ package com.inigoflores.liverpooltest.store_search.respository;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
 /**
  * Created by inigo on 06/12/17.
  */
 
 public class Search {
-    @SerializedName("contents")
+    @SerializedName("status")
     @Expose
-    public List<Content> contents = null;
+    public Status status;
+    @SerializedName("pageType")
+    @Expose
+    public String pageType;
+    @SerializedName("plpResults")
+    @Expose
+    public PlpResults plpResults;
 }

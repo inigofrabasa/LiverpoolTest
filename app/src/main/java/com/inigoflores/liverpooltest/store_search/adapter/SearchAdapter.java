@@ -49,21 +49,20 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     public void onBindViewHolder(SearchViewHolder holder, int position) {
         final int pos = getItemViewType(position);
 
-        if(records.get(pos).attributes.productDisplayName.get(0) != null){
-            holder.productName.setText(records.get(pos).attributes.productDisplayName.get(0));
+        if(records.get(pos).productDisplayName != null){
+            holder.productName.setText(records.get(pos).productDisplayName);
         }
 
-        if (records.get(pos).attributes.productImage == null) {
-            if(records.get(pos).attributes.skuThumbnailImage.get(0) != null &&
-                    records.get(pos).attributes.skuThumbnailImage.size() > 0)
-                new DownloadImage(holder.productImage, records.get(pos).attributes)
-                        .execute(records.get(pos).attributes.skuThumbnailImage.get(0));
+        if (records.get(pos).productImage == null) {
+            if(records.get(pos).smImage != null)
+                new DownloadImage(holder.productImage, records.get(pos))
+                        .execute(records.get(pos).smImage);
         } else {
-            holder.productImage.setImageBitmap(records.get(pos).attributes.productImage);
+            holder.productImage.setImageBitmap(records.get(pos).productImage);
         }
 
-        if(records.get(pos).attributes.skuSalePrice.get(0) != null){
-            holder.productPrice.setText("$ " + records.get(pos).attributes.skuSalePrice.get(0));
+        if(records.get(pos).listPrice != null){
+            holder.productPrice.setText("$ " + records.get(pos).listPrice);
         }
 
     }

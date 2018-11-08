@@ -7,11 +7,11 @@ import com.google.gson.annotations.SerializedName;
  * Created by inigo on 08/11/18.
  */
 
-public class SortOption {
-    @SerializedName("sortBy")
+public class Status {
+    @SerializedName("status")
     @Expose
-    public String sortBy;
-    @SerializedName("label")
+    public String status;
+    @SerializedName("statusCode")
     @Expose
-    public String label;
+    public Integer statusCode;
 }

@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Liverpool</string>
-    <string name="urlBase">https://www.liverpool.com.mx/tienda/</string>
-    <string name="jsonKey">d3106047a194921c01969dfdec083925=json</string>
-    <string name="listParam">Results List</string>
+    <string name="urlBase">https://shoppapp.liverpool.com.mx/appclienteservices/services/v2/</string>
     <string name="text_your_search">Búsqueda</string>
 </resources>
